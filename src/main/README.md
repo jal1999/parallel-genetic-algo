@@ -1,1 +1,0 @@
-A parallel genetic algorithm for determining the most optimal configuration of  the machines on a factory floor. Each machine has a value representing its affinity for being near other types of machines. The program finds what configuration maxmimizes this value for all machines on the floor. 
