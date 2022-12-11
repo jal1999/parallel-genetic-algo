@@ -6,8 +6,10 @@ import java.awt.*;
 public class GUI {
     JFrame frame;
     JButton[][] grid;
+    JLabel label;
     public void paint(Station[][] floor) {
         frame = new JFrame();
+        frame.add(label);
         frame.setLayout(new GridLayout(floor.length, floor[0].length));
         grid = new JButton[floor.length][floor[0].length];
         for (int i = 0; i < floor.length; ++i) {

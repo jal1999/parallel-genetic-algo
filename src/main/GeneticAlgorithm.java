@@ -44,15 +44,6 @@ public class GeneticAlgorithm {
     }
 
     /**
-     * Retrieves the affinities associated with the genetic algorithm.
-     *
-     * @return the affinities associated with the genetic algorithm.
-     */
-    public ConcurrentHashMap<Integer, ConcurrentHashMap<Integer, Float>> getAffinities() {
-        return this.affinities;
-    }
-
-    /**
      * Generates a randomized floor plan.
      *
      * @return a randomized floor plan
@@ -63,7 +54,7 @@ public class GeneticAlgorithm {
         for (int i = 0; i < Constants.NUM_ROWS; ++i) {
             for (int j = 0; j < Constants.NUM_COLS; ++j) {
                 int r = ThreadLocalRandom.current().nextInt(Constants.NUM_TYPES);
-                floorPlan[i][j] = new Station(r, this.affinities.get(r));
+                floorPlan[i][j] = new Station(r);
             }
         }
         return floorPlan;
@@ -194,7 +185,6 @@ public class GeneticAlgorithm {
      */
     public void computeScores() {
         ExecutorService ex = Executors.newWorkStealingPool();
-        ArrayList<Double> scores = new ArrayList<>();
 
         for (int i = 0; i < Constants.NUM_GENS; ++i) {
             final int iCopy = i;
@@ -212,7 +202,7 @@ public class GeneticAlgorithm {
             int randomCol = ThreadLocalRandom.current().nextInt(g.getFloorPlan()[0].length);
             int randomType = ThreadLocalRandom.current().nextInt(Constants.NUM_TYPES);
 
-            g.getFloorPlan()[randomRow][randomCol] = new Station(randomType, this.affinities.get(randomType));
+            g.getFloorPlan()[randomRow][randomCol] = new Station(randomType);
         }
     }
 
@@ -259,9 +249,7 @@ public class GeneticAlgorithm {
 
                 /* Second half -> other floor plan */
                 for (int j = Constants.NUM_ROWS / 2; j < Constants.NUM_ROWS; ++j) {
-                    for (int k = 0; k < Constants.NUM_COLS; ++k) {
-                        floorPlan[j][k] = otherOne[j][k];
-                    }
+                    System.arraycopy(otherOne[j], 0, floorPlan[j], 0, Constants.NUM_COLS);
                 }
                 Generation offspring = new Generation(bestGens[iCopy].getIdx(), floorPlan);
                 children[iCopy] = offspring;
