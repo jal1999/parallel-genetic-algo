@@ -1,18 +1,14 @@
 package main;
 
-import javax.swing.*;
-import java.util.HashMap;
-import java.util.concurrent.ConcurrentHashMap;
-
 public class Main {
     public static void main(String[] args) {
       GeneticAlgorithm ga = new GeneticAlgorithm();
       ga.runIteration();
-      GUI.Pair p = GUI.paint(ga.getPop().getBestFloorPlan(), ga.getPop().getBestScore());
+      GUI gui = new GUI();
+      gui.paint(ga.getPop().getBestFloorPlan());
       for (int i = 0; i < 1000; ++i) {
           ga.runIteration();
-          GUI.repaint(ga.getPop().getBestFloorPlan(), p, ga.getPop().getBestScore());
+          gui.repaint(ga.getPop().getBestFloorPlan());
       }
-      GUI.finalPaint(ga.getPop().getBestFloorPlan(), p, ga.getPop().getBestScore());
     }
 }

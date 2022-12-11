@@ -1,8 +1,5 @@
 package main;
 
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-
 public class Station {
 
     /**
@@ -11,16 +8,10 @@ public class Station {
     private final int type;
 
     /**
-     * Affinities for this type of Station
-     */
-    private ConcurrentHashMap<Integer, Float> affinities;
-
-    /**
      * Creates a new instance of Station
      */
-    public Station(int type, ConcurrentHashMap<Integer, Float> affinities) {
+    public Station(int type) {
         this.type = type;
-        this.affinities = affinities;
     }
 
     /**
@@ -30,14 +21,5 @@ public class Station {
      */
     public int getType() {
         return type;
-    }
-
-    /**
-     * Retrieves the affinity values for this type of station
-     *
-     * @return the affinity values for this type of station.
-     */
-    public ConcurrentHashMap<Integer, Float> getAffinities() {
-        return affinities;
     }
 }
